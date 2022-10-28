@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dados Fila</title>
+    <link rel="stylesheet" href="fila.css" />
+  </head>
+  <body>
+    <div id="fila-container"></div>
+    <div id="button-div">
+      <input placeholder="Insira um valor aqui!" id="input-fila" />
+      <button onclick="ativarMostrarFila()">MOSTRA A FILA</button>
+      <button onclick="ativarChegada()">CHEGADA</button>
+      <button onclick="ativarPartida()">PARTIDA</button>
+    </div>
+    <script>
+      class Fila {
+        constructor(lista) {
+          this.lista = lista;
+        }
+        mostraFila() {
+          for (var i; i < this.lista.length; i++) {
+            let position = i + 1;
+            console.log(
+              "Posição do número" + position + ", valor" + this.lista[i]
+            );
+          }
+          return this.lista;
+        }
+        chegada(...elementos) {
+          return this.lista.push(...elementos);
+        }
+        partida(...elementos) {
+          if (this.lista.length === 0) {
+            throw new Error("Fila Vazia");
+          } else {
+            return this.lista.shift();
+          }
+        }
+      }
+      var novaFila = new Fila([]);
+
+      function ativarMostrarFila() {
+        var inputFila = document.getElementById("input-fila").value;
+        document.getElementById("fila-container").innerHTML = "";
+        for (i = 0; i < novaFila.length; i++) {
+          const create = document.createElement("div");
+          create.classList.add("elemento-da-fila");
+          create.innerText = novaFila.lista[i];
+          document.getElementById("fila-container").appendChild(create);
+        }
+      }
+      function ativarChegada() {
+        var inputFila = document.getElementById("input-fila").value;
+        novaFila.chegada(inputFila);
+        document.getElementById("fila-container").innerHTML = "";
+
+        for (i = 0; i < novaFila.lista.length; i++) {
+          const create = document.createElement("div");
+          create.innerText = novaFila.lista[i];
+          create.classList.add("elemento-da-fila");
+          document.getElementById("fila-container").appendChild(create);
+        }
+      }
+
+      function ativarPartida() {
+        novaFila.partida();
+        document.getElementById("fila-container").innerHTML = "";
+
+        for (i = 0; i < novaFila.lista.length; i++) {
+          const create = document.createElement("div");
+          create.innerText = novaFila.lista[i];
+          create.classList.add("elemento-da-fila");
+          document.getElementById("fila-container").appendChild(create);
+        }
+      }
+    </script>
+  </body>
+</html>
